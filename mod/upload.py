@@ -10,5 +10,6 @@ def upload(version):
             print("\033[1;32m已经是最新版本\033[0m")
         else:
             print("\033[1;31m软件非最新版本，请前往github更新\033[0m")
+            print("=====\nhttps://github.com/H4ckBu7eer-EX/IOF\n=====")
     else:
         print("\033[1;31m请求失败...\033[0m")
