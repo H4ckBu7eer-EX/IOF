@@ -2,7 +2,14 @@ from mod.help import *
 from mod.upload import *
 from mod.ser import *
 from mod.mumaser import *
+from mod.shot import *
 import random
+
+
+#启动项===========
+upload()
+#check_ip()
+localinfo()
 
 logo1 = '''
     ooooo   ooooo       .o             oooo        oooooooooo.               ooooooooo                              
@@ -97,7 +104,17 @@ def input_com():
             else:
                 print("输入错误，请重新输入")
         elif user_input == "4":
-            print("e")
+            print("=====摄像头shot=====")
+            print("=====选择探测摄像头或用摄像头截图=====")
+            version = input("1| 探测摄像头\n2| 摄像头shot\n输入选择:")
+            if version == "1":
+                check_cameras()
+            elif version == "2":
+                shot()
+            elif version == "exit":
+                print_menu()
+            else:
+                print("输入错误，请重新输入")
         elif user_input == "5":
             print("f")
         elif user_input == "6":

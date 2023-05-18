@@ -11,4 +11,4 @@ def upload(version):
         else:
             print("\033[1;31m软件非最新版本，请前往github更新\033[0m")
     else:
-        print("请求失败...")
+        print("\033[1;31m请求失败...\033[0m")
