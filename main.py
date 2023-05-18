@@ -5,9 +5,9 @@ from mod.mumaser import *
 from mod.shot import *
 import random
 
-
+ver=1
 #启动项===========
-upload()
+upload(ver)
 #check_ip()
 localinfo()
 
@@ -21,7 +21,7 @@ logo1 = '''
     o888o   o888o     o888o  `Y8bod8P' o888o o888o o888bood8P'   `V88V"V8P'   .8'      `Y8bod8P' `Y8bod8P' d888b    
         '''
 
-ver=1
+
 
 def print_colorful(text):
     colors = ['\033[31m', '\033[32m', '\033[33m', '\033[34m', '\033[35m', '\033[36m']

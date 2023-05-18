@@ -34,7 +34,7 @@ def mumaser():
         while True:
             send_data = input("GOGOGO>>>")
             if send_data == "exit":
-                print("退出")
+                print("=====EXIT!!!=====")
                 client_socket.close()
                 break
             else:
