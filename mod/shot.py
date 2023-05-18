@@ -19,5 +19,3 @@ def shot():
     ret, frame = cap.read()
     imwrite('./shot.png', frame)
     print("\033[32m" + "照片保存至当前目录!" + "\033[0m")
-
-shot()
