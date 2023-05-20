@@ -1,6 +1,7 @@
 def localinfo():
     import socket
     import subprocess
+    import os
     print("\033[1;31m=====探测机器本地信息=====\033[0m")
     hostname = socket.gethostname()
     ip_address = socket.gethostbyname(hostname)
@@ -8,7 +9,10 @@ def localinfo():
     whoami = subprocess.check_output(['whoami']).decode('utf-8').strip()
     print("当前用户为:", "\033[1;32m", whoami, "\033[0m")
 
- 
+def get_env():
+    import os
+    env=os.environ
+    print("=====环境变量=====\n"+str(env))
 
 def check_ip():
     import requests

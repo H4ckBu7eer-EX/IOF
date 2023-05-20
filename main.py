@@ -8,7 +8,7 @@ import random
 
 ver = 1
 #启动项===========
-upload(ver)
+#upload(ver)
 #check_ip()
 localinfo()
 
@@ -70,10 +70,11 @@ def print_menu():
               functions_name[i][1].ljust(15))
 
 
+
 def input_com():
     print_menu()
     while True:
-        user_input = input('请输入指令(menu>>菜单): ')
+        user_input = input("\033[4m请输入指令(menu>>菜单): \033[0m")
         if user_input == "exit" or user_input == "退出":
             print("=====再会=====")
             break
@@ -84,6 +85,7 @@ def input_com():
         elif user_input == "1":
             localinfo()
             check_ip()
+            get_env()
         elif user_input == "2":
             print("=====选择exe版本或python版本=====")
             version = input(
