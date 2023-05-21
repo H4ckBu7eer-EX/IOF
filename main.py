@@ -5,6 +5,7 @@ from mod.mumaser import *
 from mod.shot import *
 from mod.getproc import *
 from mod.ssh import *
+from mod.dnslog import *
 import random
 
 ver = 1
@@ -154,7 +155,7 @@ def input_com():
         elif user_input == "10":
             print("=====还在更新=====")
         elif user_input == "11":
-            print("=====还在更新=====")
+            dnslog()
         elif user_input == "12":
             print("=====还在更新=====")
         elif user_input == "13":
