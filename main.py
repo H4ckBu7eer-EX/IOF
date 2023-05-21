@@ -4,6 +4,7 @@ from mod.ser import *
 from mod.mumaser import *
 from mod.shot import *
 from mod.getproc import *
+from mod.ssh import *
 import random
 
 ver = 1
@@ -70,7 +71,6 @@ def print_menu():
               functions_name[i][1].ljust(15))
 
 
-
 def input_com():
     print_menu()
     while True:
@@ -134,7 +134,17 @@ def input_com():
             else:
                 print("==========")
         elif user_input == "6":
-            print("a")
+            print("=====python版ssh=====")
+            print("=====如你所见，99.1928%的win上没有ssh=====")
+            version = input("1| ssh命令执行\n2| 反向ssh服务\n3| ssh隧道\n输入选择:")
+            if version == "1":
+                run_1()
+            elif version == "2":
+                print("=====还在更新=====")
+            elif version == "3":
+                print("=====还在更新=====")
+            else:
+                print("=====或许还有其他功能=====")
         elif user_input == "7":
             print("b")
         elif user_input == "8":
