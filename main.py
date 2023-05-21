@@ -50,19 +50,19 @@ def print_menu():
         ("4", "|摄像头shot"),
         ("5", "|获取前台程序"),
         ("6", "|py-ssh"),
-        ("7", "|FOFA"),
-        ("8", "|SHODAN"),
-        ("9", "|ZOOMEYE"),
-        ("10", "|ZOOMEYE"),
-        ("11", "|ZOOMEYE"),
-        ("12", "|ZOOMEYE"),
-        ("13", "|ZOOMEYE"),
-        ("14", "|ZOOMEYE"),
-        ("15", "|ZOOMEYE"),
-        ("16", "|ZOOMEYE"),
-        ("17", "|ZOOMEYE"),
-        ("18", "|ZOOMEYE"),
-        ("19", "|ZOOMEYElast"),
+        ("7", "|USB蠕虫"),
+        ("8", "|看门狗(维持运行)"),
+        ("9", "|内网上线命令生成"),
+        ("10", "|补丁提权查询"),
+        ("11", "|内网DNSlog"),
+        ("12", "|嗅探"),
+        ("13", "|代理"),
+        ("14", "|github C2木马"),
+        ("15", "|键盘记录"),
+        ("16", "|截屏获取"),
+        ("17", "|沙箱检测"),
+        ("18", "|挖掘电脑上软件提权方式"),
+        ("19", "|ARP投毒"),
     ]
     print(help)
     print("==========菜单==========")
@@ -146,33 +146,33 @@ def input_com():
             else:
                 print("=====或许还有其他功能=====")
         elif user_input == "7":
-            print("b")
+            print("=====还在更新=====")
         elif user_input == "8":
-            print("c")
+            print("=====还在更新=====")
         elif user_input == "9":
-            print("d")
+            print("=====还在更新=====")
         elif user_input == "10":
-            print("e")
+            print("=====还在更新=====")
         elif user_input == "11":
-            print("f")
+            print("=====还在更新=====")
         elif user_input == "12":
-            print("e")
+            print("=====还在更新=====")
         elif user_input == "13":
-            print("f")
+            print("=====还在更新=====")
         elif user_input == "14":
-            print("a")
+            print("=====还在更新=====")
         elif user_input == "15":
-            print("b")
+            print("=====还在更新=====")
         elif user_input == "16":
-            print("c")
+            print("=====还在更新=====")
         elif user_input == "17":
-            print("d")
+            print("=====还在更新=====")
         elif user_input == "18":
-            print("e")
+            print("=====还在更新=====")
         elif user_input == "19":
-            print("f")
+            print("=====还在更新=====")
         else:
-            print("你输入了预期之外的选项，渗透也是如此。\n不拘泥于工具，不止步于此，少年！")
+            print("你输入了预期之外的选项，生活也是如此。\n不拘泥于工具，不止步于此！")
 
 
 input_com()
