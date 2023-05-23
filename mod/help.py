@@ -1,9 +1,3 @@
-def run_command(command):
-    import subprocess
-    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-    output, error = process.communicate()
-    return output.decode('gbk')
-
 def localinfo():
     import socket
     import subprocess

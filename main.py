@@ -6,6 +6,7 @@ from mod.shot import *
 from mod.getproc import *
 from mod.ssh import *
 from mod.dnslog import *
+from mod.search import *
 import random
 
 ver = 1
@@ -54,7 +55,7 @@ def print_menu():
         ("7", "|USB蠕虫"),
         ("8", "|看门狗(维持运行)"),
         ("9", "|内网上线命令生成"),
-        ("10", "|补丁提权查询"),
+        ("10", "|默密、杀软、提权查询"),
         ("11", "|内网DNSlog"),
         ("12", "|嗅探"),
         ("13", "|代理"),
@@ -154,7 +155,17 @@ def input_com():
         elif user_input == "9":
             print("=====还在更新=====")
         elif user_input == "10":
-            print("=====还在更新=====")
+            print("====调用其他网站查一下设备弱密和杀软=====")
+            print("=====应该有个补丁KB查提权和过滤 但是没搞好 备忘一下=====")
+            version = input("1| 默认密码\n2| 杀软识别\n3| KB补丁提权查询\n输入选择:")
+            if version == "1":
+                getweekpas()
+            elif version == "2":
+                findav()
+            elif version == "3":
+                print("=====KB还在更新=====")
+            else:
+                print("=====或许还有其他功能=====")
         elif user_input == "11":
             dnslog()
         elif user_input == "12":
@@ -174,9 +185,13 @@ def input_com():
         elif user_input == "19":
             print("=====还在更新=====")
         elif user_input == "20":
-            print("=====杂鱼命令大全=====")
+            print("=====杂鱼杂鱼=====")
+            with open('tip.txt', encoding='utf-8') as f:
+                for line in f:
+                    print(line)
+            print("=====这里应该是菜单分类执行命令的地方 但是懒了 先贴个备忘txt=====")
         else:
-            print("你输入了预期之外的选项，生活也是如此。\n不拘泥于工具，不止步于此！")
+            print("预期之外的选项，生活也是如此。\n不拘泥于工具，不止步于此！")
 
 
 input_com()
