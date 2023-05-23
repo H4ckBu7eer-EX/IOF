@@ -1,7 +1,12 @@
+def run_command(command):
+    import subprocess
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+    output, error = process.communicate()
+    return output.decode('gbk')
+
 def localinfo():
     import socket
     import subprocess
-    import os
     print("\033[1;31m=====探测机器本地信息=====\033[0m")
     hostname = socket.gethostname()
     ip_address = socket.gethostbyname(hostname)
@@ -34,8 +39,16 @@ def check_ip():
     except:
         print('\033[1;32m=====此机器不出网=====\033[0m')
 
+'''
+def systeminfo():
+    import subprocess
+    sysinfo = subprocess.check_output(['systeminfo']).decode('gbk').strip()
+    return sysinfo
 
-    
 
-
+def netstat():
+    import subprocess
+    netstat = subprocess.check_output(['tasklist /svc']).decode('gbk').strip()
+    return netstat
+'''
 
